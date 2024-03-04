@@ -1,0 +1,58 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-03-04 16:53:15.350073",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "firebase_admin_app",
+  "admin_role",
+  "qr_logo"
+ ],
+ "fields": [
+  {
+   "fieldname": "firebase_admin_app",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Firebase Admin App",
+   "options": "Firebase Admin App",
+   "reqd": 1
+  },
+  {
+   "fieldname": "admin_role",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Admin Role",
+   "options": "Role",
+   "reqd": 1
+  },
+  {
+   "fieldname": "qr_logo",
+   "fieldtype": "Attach Image",
+   "label": "QR Logo"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2024-03-04 17:02:28.345795",
+ "modified_by": "Administrator",
+ "module": "PF Manage",
+ "name": "PF Manage Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
