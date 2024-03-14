@@ -9,16 +9,20 @@
   "coupon_name",
   "category",
   "slot",
-  "is_festival",
+  "venue",
+  "column_break_bihq",
   "festival",
   "is_public",
   "price",
-  "venue",
   "usability_section",
   "usable_from",
   "usable_till",
   "serving_time",
-  "booking_threshold"
+  "column_break_oxdv",
+  "booking_threshold",
+  "cancel_threshold",
+  "transferable",
+  "transfer_threshold"
  ],
  "fields": [
   {
@@ -64,23 +68,16 @@
    "reqd": 1
   },
   {
+   "description": "Allowed booking until Serving Time - Booking Threshold",
    "fieldname": "booking_threshold",
    "fieldtype": "Duration",
    "label": "Booking Threshold",
    "reqd": 1
   },
   {
-   "default": "0",
-   "fieldname": "is_festival",
-   "fieldtype": "Check",
-   "label": "Is Festival"
-  },
-  {
-   "depends_on": "eval:doc.is_festival",
    "fieldname": "festival",
    "fieldtype": "Link",
    "label": "Festival",
-   "mandatory_depends_on": "eval:doc.is_festival",
    "options": "PF Festival"
   },
   {
@@ -112,11 +109,40 @@
    "fieldname": "is_public",
    "fieldtype": "Check",
    "label": "Is Public"
+  },
+  {
+   "depends_on": "eval:doc.transferable",
+   "description": "Allowed transfer until Serving Time + Transfer Threshold",
+   "fieldname": "transfer_threshold",
+   "fieldtype": "Duration",
+   "label": "Transfer Threshold"
+  },
+  {
+   "default": "0",
+   "fieldname": "transferable",
+   "fieldtype": "Check",
+   "label": "Transferable"
+  },
+  {
+   "fieldname": "column_break_bihq",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_oxdv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "21600",
+   "description": "Allowed cancellation until Serving Time - Cancel Threshold",
+   "fieldname": "cancel_threshold",
+   "fieldtype": "Duration",
+   "label": "Cancel Threshold",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-04 18:12:49.957028",
+ "modified": "2024-03-14 15:59:24.329880",
  "modified_by": "Administrator",
  "module": "PF Manage",
  "name": "PF Coupon Data",

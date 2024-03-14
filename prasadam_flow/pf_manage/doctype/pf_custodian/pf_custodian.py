@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class PFCouponData(Document):
+class PFCustodian(Document):
 	pass
