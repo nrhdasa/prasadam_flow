@@ -102,13 +102,17 @@ app_license = "mit"
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
+permission_query_conditions = {
+    "PF Coupon Transfer": "prasadam_flow.pf_manage.doctype.pf_coupon_transfer.pf_coupon_transfer_filter.list_filter",
+    "PF Coupon Book": "prasadam_flow.pf_manage.doctype.pf_coupon_book.pf_coupon_book_filter.list_filter",
+    "PF Coupon Issue": "prasadam_flow.pf_manage.doctype.pf_coupon_issue.pf_coupon_issue_filter.list_filter",
+}
 #
-# has_permission = {
-# 	"Event": "frappe.desk.doctype.event.event.has_permission",
-# }
+has_permission = {
+    "PF Coupon Transfer": "prasadam_flow.pf_manage.doctype.pf_coupon_transfer.pf_coupon_transfer_filter.single",
+    "PF Coupon Book": "prasadam_flow.pf_manage.doctype.pf_coupon_book.pf_coupon_book_filter.single",
+    "PF Coupon Issue": "prasadam_flow.pf_manage.doctype.pf_coupon_issue.pf_coupon_issue_filter.single",
+}
 
 # DocType Class
 # ---------------
@@ -226,4 +230,3 @@ app_license = "mit"
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

@@ -5,9 +5,27 @@ import frappe
 from frappe.model.document import Document
 from prasadam_flow.controllers.thresholds import is_transfer_allowed
 from prasadam_flow.controllers.credits import get_custodian_coupon_credits
+from datetime import datetime
 
 
 class PFCouponTransfer(Document):
+    def on_trash(self):
+        if frappe.session.user == self.to_custodian:
+            date_str = self.use_date.strftime("%A, %dth %B")
+            self.notify_mobile_app_users(
+                self.from_custodian,
+                "Coupons Refused!",
+                f"""{self.to_custodian_name} has refused to receive your {self.number} coupons ({self.coupon_data}) of {date_str}.""",
+            )
+
+    def before_save(self):
+        self.from_custodian_name = frappe.db.get_value(
+            "User", self.from_custodian, "full_name"
+        )
+        self.to_custodian_name = frappe.db.get_value(
+            "User", self.to_custodian, "full_name"
+        )
+
     def before_cancel(self):
         ## There can be an issue only with the custodian who has received because he might have used them.
         avl_credits_to_custodian = get_custodian_coupon_credits(
@@ -47,3 +65,16 @@ class PFCouponTransfer(Document):
                 f"Transfer disallowed due to insufficient balance : {avl_credits}"
             )
         return
+
+    def notify_mobile_app_users(self, erp_user, title, message):
+        settings_doc = frappe.get_cached_doc("PF Manage Settings")
+        doc = frappe.get_doc(
+            {
+                "doctype": "App Notification",
+                "app": settings_doc.firebase_admin_app,
+                "user": erp_user,
+                "subject": title,
+                "message": message,
+            }
+        )
+        doc.insert(ignore_permissions=True)

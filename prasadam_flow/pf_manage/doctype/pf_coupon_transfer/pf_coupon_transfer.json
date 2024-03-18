@@ -7,7 +7,9 @@
  "field_order": [
   "section_break_gmh8",
   "from_custodian",
+  "from_custodian_name",
   "to_custodian",
+  "to_custodian_name",
   "use_date",
   "number",
   "amended_from",
@@ -94,12 +96,25 @@
    "fieldtype": "Data",
    "label": "Serving Time",
    "read_only": 1
+  },
+  {
+   "fetch_from": ".user",
+   "fieldname": "from_custodian_name",
+   "fieldtype": "Data",
+   "label": "From Custodian Name",
+   "read_only": 1
+  },
+  {
+   "fieldname": "to_custodian_name",
+   "fieldtype": "Data",
+   "label": "To Custodian Name",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-14 13:32:34.708766",
+ "modified": "2024-03-18 10:44:52.987465",
  "modified_by": "Administrator",
  "module": "PF Manage",
  "name": "PF Coupon Transfer",

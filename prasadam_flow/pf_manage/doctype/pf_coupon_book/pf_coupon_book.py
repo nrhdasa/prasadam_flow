@@ -23,6 +23,18 @@ class PFCouponBook(Document):
             frappe.throw(
                 "This can't be canceled as coupons have already been issued against this booking."
             )
+
+        ## Check if user is Custodian OR Admin
+        settings_doc = frappe.get_cached_doc("PF Manage Settings")
+        user_roles = frappe.get_roles(frappe.session.user)
+
+        if (settings_doc.admin_role not in user_roles) and (
+            self.custodian != frappe.session.user
+        ):
+            frappe.throw(
+                "You are not allowed to cancel this as you are not Custodian of this booking."
+            )
+
         return
 
     def validate(self):
