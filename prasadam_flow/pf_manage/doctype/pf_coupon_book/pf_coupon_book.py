@@ -53,4 +53,5 @@ class PFCouponBook(Document):
             frappe.throw(
                 f"Booking is not allowed due to constraints for this month. (Available Quota : {quota})"
             )
+
         return

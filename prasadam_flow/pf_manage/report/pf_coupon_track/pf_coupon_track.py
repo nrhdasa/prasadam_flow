@@ -36,6 +36,7 @@ def execute(filters=None):
     return columns, data
 
 
+@frappe.whitelist()
 def get_coupon_credits_map(custodians, coupon_data, use_date):
     custodian_map = {}
     blank_coupon_map = frappe._dict(
@@ -79,19 +80,18 @@ def get_coupon_credits_map(custodians, coupon_data, use_date):
     ## Issued
     for i in frappe.db.sql(
         f"""
-		SELECT custodian, used, SUM(number) as credits
+		SELECT custodian, number, used 
 		FROM `tabPF Coupon Issue`
 		WHERE docstatus = 1
 			AND use_date = '{use_date}'
 			AND coupon_data = '{coupon_data}'
-		GROUP BY custodian, used	
 		""",
         as_dict=1,
     ):
-        if i["used"]:
-            custodian_map[i["custodian"]]["used"] = i["credits"]
+        custodian_map[i["custodian"]]["issued"] += i["number"]
 
-        custodian_map[i["custodian"]]["issued"] += i["credits"]
+        if i["used"]:
+            custodian_map[i["custodian"]]["used"] += i["used"]
 
     return custodian_map
 

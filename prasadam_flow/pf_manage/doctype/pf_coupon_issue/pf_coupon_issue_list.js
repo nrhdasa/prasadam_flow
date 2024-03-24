@@ -4,7 +4,10 @@ frappe.listview_settings['PF Coupon Issue'] = {
         // customize indicator color
         if (doc.docstatus == 1) {
             if (doc.used) {
-                return [__("Used"), "green", "used,=,1"];
+                if (doc.number == doc.used) {
+                    return [__("Used"), "green", "used,=,1"];
+                }
+                return [__("Partially Used"), "yellow", "used,>,0"];
             } else {
                 return [__("Unused"), "darkgrey", "docstatus,=,1"];
             }

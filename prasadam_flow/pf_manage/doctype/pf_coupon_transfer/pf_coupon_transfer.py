@@ -40,10 +40,16 @@ class PFCouponTransfer(Document):
 
     def before_submit(self):
         admin_role = frappe.db.get_single_value("PF Manage Settings", "admin_role")
+
         if (admin_role not in frappe.get_roles()) and (
-            frappe.session.user != self.to_custodian
+            self.to_custodian == frappe.session.user
         ):
-            frappe.throw("Only Admin or the receiver can approve this Transfer.")
+            frappe.throw("Only Admin or Sender of Coupons can approve.")
+        return
+
+    def before_insert(self):
+        if self.from_custodian == frappe.session.user:
+            frappe.throw("Coupon Transfer can only be initaied by receiver.")
         return
 
     def validate(self):

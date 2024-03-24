@@ -7,6 +7,11 @@ from prasadam_flow.controllers.credits import get_custodian_coupon_credits
 
 
 class PFCouponIssue(Document):
+    def before_update_after_submit(self):
+        if self.number < self.used:
+            frappe.throw("Used Count can't be more than the Coupon Credits.")
+        return
+
     def validate(self):
         self.validate_coupon_availability()
         return
